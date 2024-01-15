@@ -70,6 +70,7 @@ class Grid():
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
         # TODO: implement this function (and remove the line "raise NotImplementedError").
+        self[cell1[0], cell1[1]] = self[cell2[0],cell2[1]]
         raise NotImplementedError
 
     def swap_seq(self, cell_pair_list):
