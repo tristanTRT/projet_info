@@ -1,10 +1,19 @@
 from grid import Grid
 from solver import Solver
 
-g = Grid(2, 3)
-print(g)
+data_path = "/home/onyxia/work/projet_info/input/"
+file_name = data_path + "grid0.in"
 
-print(g.is_sorted())
-print(g.n)
 
-print(g.get_solution())
+print(file_name)
+
+
+g = Grid.grid_from_file(file_name)
+"""
+s = Solver()
+print(s)
+print(s.get_solution(g))
+"""
+
+
+
