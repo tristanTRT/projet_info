@@ -28,31 +28,45 @@ class Solver():
             j = 0
             while grille.state[i][j] != numero_cible : 
                 j = j + 1
-                if j >= grille.n -1 : 
+                if j > grille.n -1 : 
                     j = 0 
                     i = i +1
             return((i,j))
        
 
-        """
+        
         list_of_moves = [] 
-        numero_cible = 1 
-        A = case_actuelle(numero_cible)
-        if A[1] < case_cible(numero_cible)[1] : 
-            while A[0][1] < case_cible(numero_cible)[0][1] :
-                grille.swap((A, A[0], A[1]+1))
-        else : 
-            while A[1] > case_cible(numero_cible)[1] :
-                grille.swap((A), (A[0], A[1]-1))
-        #Bonne colonne
+        numero_cible = 1
+        
+        for i in range (1, grille.m*grille.n+1): 
+            A = case_actuelle(numero_cible) # A = case actuelle 
 
-        if A[0] < case_cible[0] : 
-            while A[0] < case_cible[0] :
-                grille.swap((A), (A[0]-1, A[1]))
-        else : 
-            while A[0] > case_cible[0] :
-                grille.swap((A), (A[0]+1, A[1]))
-            #Bonne ligne
-        numero_cible = numero_cible +1
-        """
-        return(grille, case_cible(8), case_actuelle(8))
+            if A[0] < case_cible(numero_cible)[0] : 
+                while A[0] < case_cible(numero_cible)[0] :
+                    grille.swap((A), (A[0]+1, A[1]))
+                    list_of_moves.append((A,(A[0]+1, A[1])))
+                    A = case_actuelle(numero_cible) #Maj de la case actuelle numéro cible
+            else : 
+                while A[0] > case_cible(numero_cible)[0] :
+                    grille.swap((A), (A[0]-1, A[1]))
+                    list_of_moves.append((A,(A[0]-1, A[1])))
+                    A = case_actuelle(numero_cible) # Maj de la case actuelle numéro cible
+                #Bonne ligne
+            #Necessaire de commencer par les lignes pour ne pas 'déranger' la grille déjà rangée
+
+            if A[1] < case_cible(numero_cible)[1] : 
+                while A[1] < case_cible(numero_cible)[1] :
+                    grille.swap((A), (A[0], A[1]+1))
+                    list_of_moves.append((A,(A[0], A[1]+1)))
+                    A = case_actuelle(numero_cible)
+            else : 
+                while A[1] > case_cible(numero_cible)[1] :
+                    grille.swap((A), (A[0], A[1]-1))
+                    list_of_moves.append((A,(A[0], A[1]-1)))
+                    A = case_actuelle(numero_cible)
+            #Bonne colonne
+
+            numero_cible = numero_cible +1
+        
+        return(list_of_moves, grille) #bizarrement : n'affiche pas la matrice explicitement quand mis avec la liste des moves
+        

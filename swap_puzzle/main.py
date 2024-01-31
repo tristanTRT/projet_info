@@ -2,7 +2,7 @@ from grid import Grid
 from solver import Solver
 
 data_path = "/home/onyxia/work/projet_info/input/"
-file_name = data_path + "grid1.in"
+file_name = data_path + "grid0.in"
 
 
 
