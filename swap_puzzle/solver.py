@@ -3,8 +3,6 @@ class Solver():
     A solver class, to be implemented.
     """
     def get_solution(self, grille):
-        print(grille.m)
-        print(grille.n)
         def case_cible (numero_cible) :
             nombre_de_colonnes = grille.n   
             if nombre_de_colonnes >= numero_cible : 
@@ -29,10 +27,10 @@ class Solver():
             i = 0
             j = 0
             while grille.state[i][j] != numero_cible : 
+                j = j + 1
                 if j >= grille.n -1 : 
                     j = 0 
                     i = i +1
-                j = j + 1
             return((i,j))
        
 
@@ -57,4 +55,4 @@ class Solver():
             #Bonne ligne
         numero_cible = numero_cible +1
         """
-        return(grille, case_cible(5), case_actuelle(5))
+        return(grille, case_cible(8), case_actuelle(8))
