@@ -3,38 +3,39 @@ class Solver():
     A solver class, to be implemented.
     """
     def get_solution(self, grille):
-        print(grille)
-        """
-        Solves the grid and returns the sequence of swaps at the format 
-        [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...]. 
-        """
-        # TODO: implement this function (and remove the line "raise NotImplementedError").
-        # NOTE: you can add other methods and subclasses as much as necessary. The only thing imposed is the format of the solution returned.
+        print(grille.m)
+        print(grille.n)
         def case_cible (numero_cible) :
-            nombre_de_colonnes = grille.m     
+            nombre_de_colonnes = grille.n   
             if nombre_de_colonnes >= numero_cible : 
                 ligne = 0
-            elif 5// nombre_de_colonnes == numero_cible : 
-                ligne = numero_cible -1
+            #cas ou num_cible va à la premiere ligne
+            elif numero_cible % nombre_de_colonnes != 0 : 
+                ligne = numero_cible//nombre_de_colonnes 
+            #cas ou num_cible va entre la 2e et l'avant derniere ligne
             else : 
-                ligne = numero_cible//nombre_de_colonnes
+                ligne = numero_cible//nombre_de_colonnes -1
+            #cas ou le num_cible = nb_colonnes * entier : le num cible va a la derniere ligne
 
-            if 5%nombre_de_colonnes == 0 :  
-                colonne = numero_cible%nombre_de_colonnes 
+            if numero_cible%nombre_de_colonnes == 0 :  
+                colonne = nombre_de_colonnes -1
             else : 
                 colonne = numero_cible%nombre_de_colonnes -1
+            
             return((ligne,colonne))
-            #Donne les coordonnées de l'objectif selon la taille de la matrice et le numéro que l'on souhaite placer
+            #Donne les coordonnées de la case objectif selon la taille de la matrice et le numéro que l'on souhaite placer
 
         def case_actuelle (numero_cible) : 
             i = 0
             j = 0
             while grille.state[i][j] != numero_cible : 
-                j = j + 1
-                if j > grille.m -1 : 
+                if j >= grille.n -1 : 
                     j = 0 
                     i = i +1
+                j = j + 1
             return((i,j))
+       
+
         """
         list_of_moves = [] 
         numero_cible = 1 
@@ -56,5 +57,4 @@ class Solver():
             #Bonne ligne
         numero_cible = numero_cible +1
         """
-        return(grille, numero_cible, case_actuelle)
-
+        return(grille, case_cible(5), case_actuelle(5))
