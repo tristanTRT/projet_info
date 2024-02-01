@@ -8,7 +8,7 @@ file_name = data_path + "grid0.in"
 
 
 g = Grid.grid_from_file(file_name)
-print(g)
+print(g)# vaut pour représentation graphique de la question 3
 
 s = Solver()
 
