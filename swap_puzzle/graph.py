@@ -81,7 +81,7 @@ class Graph:
         self.nb_edges += 1
         self.edges.append((node1, node2))
 
-    def bfs(self, src, dst): 
+    def bfs(self, graph_input, src, dst): 
         """
         Finds a shortest path from src to dst by BFS.  
 
@@ -98,7 +98,26 @@ class Graph:
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        raise NotImplementedError
+        Trouve = False
+        chemin = [src]
+
+        if src != dst : #elimine le cas trivial ou arrivée = départ
+            file = graph_input.graph[src] # renvoie une liste de noeuds atteignables à partir du noeud source nommé src
+            if [dst in file] == True :  
+                Trouve = True 
+                return(chemin.append(dst))
+
+            while Trouve == False : 
+                for element in file :     
+                    ajout = graph_input.graph[element])
+                    for noeud in ajout : #détour nécessaire car on ne peut ajouter directement la liste (message d'erreur)
+                        file.append(noeud)
+                    chemin.append(element)
+                    if [dst in file] == True :  
+                        Trouve = True 
+                        return(chemin)
+        else : 
+            return(chemin)
 
     @classmethod
     def graph_from_file(cls, file_name):
