@@ -98,26 +98,34 @@ class Graph:
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
         # TODO: implement this function (and remove the line "raise NotImplementedError").
-        Trouve = False
-        chemin = [src]
+               Trouve = False
+       chemin = []
+       if src != dst : #elimine le cas trivial ou arrivée = départ
+           file = [src]
+           ajout = graph_input.graph[src] # renvoie une liste de noeuds atteignables à partir du noeud source nommé src
+           for noeud in ajout :
+               if (noeud in file) == False :
+                   file.append(noeud)
 
-        if src != dst : #elimine le cas trivial ou arrivée = départ
-            file = graph_input.graph[src] # renvoie une liste de noeuds atteignables à partir du noeud source nommé src
-            if [dst in file] == True :  
-                Trouve = True 
-                return(chemin.append(dst))
 
-            while Trouve == False : 
-                for element in file :     
-                    ajout = graph_input.graph[element])
-                    for noeud in ajout : #détour nécessaire car on ne peut ajouter directement la liste (message d'erreur)
-                        file.append(noeud)
-                    chemin.append(element)
-                    if [dst in file] == True :  
-                        Trouve = True 
-                        return(chemin)
-        else : 
-            return(chemin)
+           if dst in file == True : 
+               Trouve = True
+               chemin.append(dst)
+               return(chemin, Trouve)
+              
+           for i in range (8) :
+               for element in file : 
+                   ajout = graph_input.graph[element] # renvoie une liste de noeuds atteignables à partir du noeud source nommé element
+                   for noeud in ajout : #détour nécessaire car on ne peut ajouter directement la liste (message d'erreur)
+                       if (noeud in file) == False :
+                           file.append(noeud)
+                   chemin.append(element)
+                   if (dst in file) == True: 
+                       Trouve = True
+                       chemin.append(dst)
+                       return(chemin)
+       else :
+           return(chemin)
 
     @classmethod
     def graph_from_file(cls, file_name):
