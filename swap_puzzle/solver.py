@@ -69,4 +69,27 @@ class Solver():
             numero_cible = numero_cible +1
         
         return(list_of_moves, grille) #bizarrement : n'affiche pas la matrice explicitement quand mis avec la liste des moves
+
+    def afficher_grille(self, grille):
+        fig, ax = plt.subplots()#crée un repère avec abscisses et ordonnées
+        ax.set_xticks([])
+        ax.set_yticks([])#cache les graduations du repère 
+
+
+        # Dessiner la grille
+        for i in range(1, grille.m+2): #dessine lignes horizontales +2 car décalage dessin
+            ax.axhline(i, color='black', lw=1)
+        for j in range (1, grille.n+2): #dessine lignes verticales +2 car décalage dessin
+            ax.axvline(j, color='black', lw=1)
+        
+        # Placement des points  
+        for i in range (grille.m) : 
+            for j in range (grille.n) :
+                x = j +0.5 +1 #+1 pour le décalage 
+                y = grille.m-i-0.5+1 #+1 pour le décalage 
+                ax.text(x, y, f"{grille.state[i][j]}", ha='center', va='center', fontsize=12)
+
+
+
+        plt.show()
         
