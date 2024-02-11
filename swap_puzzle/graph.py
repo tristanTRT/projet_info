@@ -81,7 +81,7 @@ class Graph:
         self.nb_edges += 1
         self.edges.append((node1, node2))
 
-    def bfs(self, graph_input, src, dst): 
+    def bfs(self, src, dst): 
         """
         Finds a shortest path from src to dst by BFS.  
 
@@ -97,27 +97,27 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        Trouve = False # Variable qui devient vrai quand on a trouvé le noeud cherché 
-        chemin = [] # Garde une trace du chemin parcouru dans la recherche
+        Trouve = False
+        chemin = []
         if src != dst : #elimine le cas trivial ou arrivée = départ
-            file = [src] # file d'attente des noeuds dont on veut explorer les connections
-            ajout = graph_input.graph[src] # renvoie une liste de noeuds atteignables à partir du noeud source nommé src, que l'on va ajouter dans file 
-            for noeud in ajout : # teste si chaque noeud atteignable n'est pas déjà dans la liste de ceux à explorer, auquel cas : ne sert à rien de l'y remettre
+            file = [src]
+            ajout = self.graph[src] # renvoie une liste de noeuds atteignables à partir du noeud source nommé src
+            for noeud in ajout : 
                 if (noeud in file) == False : 
                     file.append(noeud)
 
-            if dst in file == True :  # si le noeud de destination est dans la file : la recherche s'arrête et on ajoute le noeud de destination au chemin
+            if dst in file == True :  
                 Trouve = True 
                 chemin.append(dst)
                 return(chemin, Trouve)
                 
             for element in file :  
-                ajout = graph_input.graph[element] # renvoie une liste de noeuds atteignables à partir du noeud dans la file, nommé element
-                for noeud in ajout : #même teste que plus haut : on met pas deux foisun même noeud dans la liste 
+                ajout = self.graph[element] # renvoie une liste de noeuds atteignables à partir du noeud source nommé element
+                for noeud in ajout : #détour nécessaire car on ne peut ajouter directement la liste (message d'erreur)
                     if (noeud in file) == False :
                         file.append(noeud)
-                chemin.append(element) # on garde une trace du chemin parcouru : à chaque fois qu'on étudie la liste de noeud atteignables par un noeud, on met ce dernier dans le chemin parcouru
-                if (dst in file) == True:  # teste si l'enquête menée autour du noeud a permis d'identifier le noeud destination : auquel cas la recherche est finie
+                chemin.append(element)
+                if (dst in file) == True:  
                     Trouve = True 
                     chemin.append(dst)
                     return(chemin)
