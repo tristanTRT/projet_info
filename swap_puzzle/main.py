@@ -28,42 +28,46 @@ s.afficher_grille(g) # affiche la grille résolue
 
 
 graph1 = Graph.graph_from_file(data_path + "graph2.in")
+graph4 = Graph.graph_from_file(data_path + "graph4.in")
 print(graph1) # le fichier donne le nombre de noeuds et le nombres de ponts au total / il décrit ensuite les arrangements faits entre les ponts
 
 # But de l'implementation initiale de BFS : trouver plus court chemin entre noeud 1 et 2 par exemple 
 
-h = Graph()
 
-print(h.bfs(graph1, 2,10), 'resultat')
+
+print(graph1.bfs(2,10), 'resultats 1')
+
 
 
 import os # pour lire le chemin d'accès au fichier crée par chemins possibles
 import shutil # pour déplacer le fichier crée par chemins possibles
 
 h1 = Grid(2,2)
-h3 = Grid(2,2)
-h2 = h1.creation_grilles_possibles(g) # renvoie liste grilles
 
-h3.creation_des_ponts(h2)
+graph_produit = Grid(2,2)
+liste_grilles_possibles = h1.creation_grilles_possibles(g) # renvoie liste grilles
 
-h4 = Grid(2,2) 
-h5 = Grid(2,2)
+graph_produit.creation_des_ponts(liste_grilles_possibles)
 
-h4.recherche_bonne_grille(h2, [[3, 4], [1, 2]])# noeud grille source 
-h5.recherche_bonne_grille(h2, [[4, 1], [2, 3]])# noeud grille cible 
+noeud_grille_source = Grid(2,2) 
+noeud_grille_cible = Grid(2,2)
 
+source = noeud_grille_source.recherche_bonne_grille(liste_grilles_possibles, [[3, 4], [1, 2]])# noeud grille source 
+cible = noeud_grille_cible.recherche_bonne_grille(liste_grilles_possibles, [[4, 1], [2, 3]])# noeud grille cible 
+
+print(source,cible, "donnees")
 
 
 h = Graph()
 
-print(h3.creation_des_ponts(h2))
+print(graph_produit.creation_des_ponts(liste_grilles_possibles))
 
 destination_path = "/workspaces/projet_info/input/"
-shutil.move(str(h3.creation_des_ponts(h2)), destination_path) # bouge le fichier avec le fichier de la liste des ponts entre les noeuds
-
+shutil.move(str(graph_produit.creation_des_ponts(liste_grilles_possibles)), destination_path) # bouge le fichier avec le fichier de la liste des ponts entre les noeuds
+os.remove("/workspaces/projet_info/input/nouveau.in")
 
 graph1 = Graph.graph_from_file(destination_path +'graph1.in') #crée graph avec le fichier d'entrée et la liste des ponts
+print(type(graph1))
 
-
-print(h.bfs(graph1, h4,h5), 'resultat')# applique le bfs au graphe avec h4 grille source et h5 grille cible 
-
+#print(graph1.bfs(noeud_grille_source,noeud_grille_cible), 'resultat')# applique le bfs au graphe avec h4 grille source et h5 grille cible 
+print(graph4.bfs(source,cible), 'resultats 2')
