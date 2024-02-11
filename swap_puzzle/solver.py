@@ -77,17 +77,17 @@ class Solver():
 
 
         # Dessiner la grille
-        for i in range(1, grille.m+2): #dessine lignes horizontales +2 car décalage dessin
+        for i in range(1, grille.m+2): #dessine lignes horizontales +2 car décalage dessin (du fait de l'axe des abscisses et ordonnées qui créent artificiellemnt 1 case en trop)
             ax.axhline(i, color='black', lw=1)
-        for j in range (1, grille.n+2): #dessine lignes verticales +2 car décalage dessin
+        for j in range (1, grille.n+2): #dessine lignes verticales +2 car décalage dessin (du fait des axes)
             ax.axvline(j, color='black', lw=1)
         
         # Placement des points  
         for i in range (grille.m) : 
             for j in range (grille.n) :
-                x = j +0.5 +1 #+1 pour le décalage 
-                y = grille.m-i-0.5+1 #+1 pour le décalage 
-                ax.text(x, y, f"{grille.state[i][j]}", ha='center', va='center', fontsize=12)
+                x = j +0.5 +1 #+1 pour le décalage lié aux axes
+                y = grille.m-i-0.5+1 #+1 pour le décalage lié aux axes
+                ax.text(x, y, f"{grille.state[i][j]}", ha='center', va='center', fontsize=12)# positionnement des chiffres dans la bonne case de la grille (x,y), choix de la taille de la police et du centrage du chiffre
 
 
 
