@@ -57,9 +57,5 @@ destination_path = "/workspaces/projet_info/input/"
 shutil.move(str(graph_produit.creation_des_ponts(liste_grilles_possibles)), destination_path) # déménage le fichier avec le fichier de la liste des ponts entre les noeuds
 os.remove("/workspaces/projet_info/input/nouveau.in")# supprime le fichier généré et appelé 'nouveau.in' qui n'est plus utile 
 
-graph1 = Graph.graph_from_file(destination_path +'graph1.in') #crée le graphe avec le fichier d'entrée et la liste des ponts
-print(type(graph1))
-
-graph4 = Graph.graph_from_file(data_path + "graph4.in")
-#print(graph1.bfs(noeud_grille_source,noeud_grille_cible), 'resultat')# applique le bfs au graphe avec h4 grille source et h5 grille cible 
-print(graph4.bfs(source,cible), 'resultats 2')
+graph1 = Graph.graph_from_file(destination_path +'graph1.in') # crée un objet de la classe graph (sur lequel appliquer le bfs) à partir du fichier crée plus haut avec l'ensemble des ponts possibles entre les différents états d'une matrice de taille 2*2
+print(graph1.bfs(source,cible), 'resultats 2')# applique le bfs à ce fichier et renvoie le chemin pour aller de noeud source à noeud cible
