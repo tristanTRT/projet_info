@@ -9,20 +9,16 @@ file_name = data_path + "grid0.in"
 
 
 
-g = Grid.grid_from_file(file_name)
+g = Grid.grid_from_file(file_name) # test avec l'input grid0.in
 
 
 a = Grid(1,1)
-
-a.afficher_grille(g)
+a.afficher_grille(g) # test de la représentation graphique d'une grille appliquée à g
 
 s = Solver()
-
-print(s.get_solution(g)) # affiche la grille initiale
-
+print(s.get_solution(g)) # résout la grille g
 
 
-s.afficher_grille(g) # affiche la grille résolue
 
 
 
@@ -30,7 +26,6 @@ s.afficher_grille(g) # affiche la grille résolue
 graph1 = Graph.graph_from_file(data_path + "graph2.in")
 graph4 = Graph.graph_from_file(data_path + "graph4.in")
 print(graph1) # le fichier donne le nombre de noeuds et le nombres de ponts au total / il décrit ensuite les arrangements faits entre les ponts
-
 # But de l'implementation initiale de BFS : trouver plus court chemin entre noeud 1 et 2 par exemple 
 
 
