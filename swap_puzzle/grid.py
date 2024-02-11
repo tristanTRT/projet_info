@@ -58,9 +58,9 @@ class Grid():
         """
         Checks is the current state of the grid is sorte and returns the answer as a boolean.
         """
-
-        compteur = 1 # compteur compte de 1 à m*n (taille de la matrice) : il correspond à la valeur théorique de chaque case : il est donc réévalué à +1 quand on passe d'une case à l'autre
-        Faux = 0 # on considère que Faux = 0 : la grille est rangée et on va tester si la valeur de chaque case est bien égale à la valeur attendue 
+        # TODO: implement this function (and remove the line "raise NotImplementedError").
+        compteur = 1
+        Faux = 0
         for i in range (self.m) : 
             for j in range (self.n) : 
                 if self.state[i][j] != compteur :
@@ -78,15 +78,14 @@ class Grid():
         cell1, cell2: tuple[int]
             The two cells to swap. They must be in the format (i, j) where i is the line and j the column number of the cell. 
         """
-        # Teste si le swap est légal : il faut que soit les 2 cases aient leurs ordonnées qui coïncident et la valeur absolue de leurs abscisses < 1 (swap de gauche à droite ou inverse 
-        # ou alors abscisses qui coïncident et ordonnées éloignées de <1 en valeur absolue (swap de haut en bas)
+        # TODO: implement this function (and remove the line "raise NotImplementedError").
         if (np.abs(cell1[0] - cell2[0]) <= 1  and cell1[1]==cell2[1]) or (np.abs(cell1[1] - cell2[1]) <= 1 and (cell1[0] == cell2[0])):  
             a = self.state[cell1[0]][cell1[1]] 
             b = self.state[cell2[0]][cell2[1]] 
             self.state[cell1[0]][cell1[1]] = b
             self.state[cell2[0]][cell2[1]] = a
         else : 
-            raise NotImplementedError # cas où le swap voulu est illégal
+            raise NotImplementedError
 
     def swap_seq(self, cell_pair_list):
         """
@@ -98,7 +97,7 @@ class Grid():
             List of swaps, each swap being a tuple of two cells (each cell being a tuple of integers). 
             So the format should be [((i1, j1), (i2, j2)), ((i1', j1'), (i2', j2')), ...].
         """
-        # parcours la liste de swaps voulus et fait appel à la fonction swap
+        # TODO: implement this function (and remove the line "raise NotImplementedError").
         for i in range (len(cell_pair_list)) :     
             self.swap(cell_pair_list[i][0], cell_pair_list[i][1])
         else : 
@@ -139,26 +138,22 @@ class Grid():
 
 
         # Dessiner la grille
-        for i in range(1, grille.m+2): #dessine lignes horizontales +2 car décalage dessin (il y a une sorte de cadre à la grille, donc il nous faut 2 cases en plus pour compenser)
-            ax.axhline(i, color='black', lw=1) # paramètres sur la couleur des traits et leur épaisseur
-        for j in range (1, grille.n+2): #dessine lignes verticales +2 car décalage dessin (idem que pour les traits horizontaux)
+        for i in range(1, grille.m+2): #dessine lignes horizontales +2 car décalage dessin
+            ax.axhline(i, color='black', lw=1)
+        for j in range (1, grille.n+2): #dessine lignes verticales +2 car décalage dessin
             ax.axvline(j, color='black', lw=1)
         
         # Placement des points  
         for i in range (grille.m) : 
             for j in range (grille.n) :
-                x = j +0.5 +1 #+1 pour le décalage lié aux axes du repère (axe des ordonnées) qui font que la grille commence avec un décalage 
-                y = grille.m-i-0.5+1 #+1 pour le décalage vertical lié à l'axe des abscisses 
-                ax.text(x, y, f"{grille.state[i][j]}", ha='center', va='center', fontsize=12) # positionnement des chiffres dans la grille : f pilote ce qu'on écrit, ha et va le positionnement et frontsize la taille de la police 
-                # x et y pilotent la case de la grille où l'on écrit 
+                x = j +0.5 +1 #+1 pour le décalage 
+                y = grille.m-i-0.5+1 #+1 pour le décalage 
+                ax.text(x, y, f"{grille.state[i][j]}", ha='center', va='center', fontsize=12) # positionnement des chiffres dans la grille
+
         plt.show()
 
     
-    def creation_grilles_possibles (self, grille) : # grille est la grille que l'on souhaite trier et dont on va créer toutes les config possibles étant donnée la taille imposée par grille
-        # l'idée de la fonction est : 
-        # - créer une liste de (m*n) ! grilles possibles 
-        # - remplir ces grilles case par case (d'abord la case (0,0) de toutes les grilles, puis (0,1) ect ect 
-
+    def creation_grilles_possibles (self, grille) : # grille est la grille que l'on souhaite trier
         import copy
         #fonction auxilliaire pour ne pas avoir des grilles avec plusieurs fois le même nombre dedans 
         def est_present (grille_test, element) :
@@ -167,7 +162,7 @@ class Grid():
                     return(True)
             return(False)
                 
-        #fonction auxilliaire pour ne pas avoir des 2 grilles pareilles dans la liste des grilles possibles 
+        #fonction auxilliaire pour ne pas avoir des 2 grilles pareilles dans la liste 
         def existe_deja (liste, grille_candidate, nb_fois) :
             compteur = 0
             for element in liste : 
@@ -177,9 +172,7 @@ class Grid():
                         return(True)
             return(False)
         
-        #fonction auxilliaire pour avoir une idée du nombre de grilles que l'on construit pareil quand on remplit la case (0,0) (6) puis (0,1) (2) et (1,0) (1) et enfin (1,1) (1) dans le cas d'une matrice de taille 2*2
-        # en effet, dans le case d'une matrice (2*2) il faut 6 grilles commençant par 4 en position (0,0), 6 commençant par 3 en (0,0) ect ect
-        # ensuite quant on remplit la case (0,1), il nous faut 2 grilles avec 4 en (0,0) et 3 en (0,1), 2 grilles avec 4 en (0,0) et 2 en (0,1) ect ect 
+        #fonction auxilliaire pour avoir une idée du nombre de grilles qu'on construit pareil quand on rempli la case (0,0) (6) puis (0,1) (2) et (1,0) (1) et enfin (1,1) (1) dans le cas d'une matrice de taille 2*2
         def nbb_fois (grille, factorielle) :
             liste = []
             for i in range (1,grille.n*grille.m +1) :
@@ -191,40 +184,40 @@ class Grid():
                     diviseur = diviseur * liste[-l]
                 nb_fois.append(int(factorielle/diviseur))
             return(nb_fois)
-            # nbb_fois renvoie une liste de nombre de grilles que l'on va devoir construire pareil selon où on en est du remplissage (case (0,0, case (0,1)...)
         
-        #fonction auxilliaire : necessaire de 'retourner' la liste renvoyée par nbbfois qui est pour une matrice (2*2) [1,1,2,6] et pas [6,2,1,1]
+        #fonction auxilliaire : necessaire de retourner la liste renvoyée par nbbfois ...
         def retournement (liste) :
             correction = []
             for i in range (1, len(liste)+1) :
                 correction.append(liste[-i])
             return(correction)
 
-        #Création de l'outil factorielle : nécessire car il faut créer une liste de factorielle_matrices vides 
+        #Création de l'outil factorielle
         factorielle = 1
         for i in range (1,grille.m * grille.n +1) :
             factorielle = i * factorielle
 
-        # génération des (m*n)! grilles de taille (m,n) différentes que l'on va ensuite remplir
+        # génération des (m*n)! grilles de taille (m,n) différentes que l'on va ensuite remplir / OK fonctionne
         liste = [[[0 for i in range (grille.m)] for j in range (grille.n)] for l in range (factorielle)] 
-        
         ligne = 0
-        colonne = 0 # pour se repérer dans le remplissage de la grille
-        
-        choix_possibles = []#création de la liste de nombres possibles pour constituer les grilles (nombres de 1 à m*n)
+        colonne = 0
+        choix_possibles = []
+
+        #création de la liste de nombres possibles pour constituer les grilles (nombres de 1 à m*n)
         for i in range (1,grille.n*grille.m+1) :
             choix_possibles.append(i)
 
         #remplissage des grilles possibles
-        nombre_de_remplissage = grille.n*grille.m # nombre de fois où on met le nombre (cf descente de l'arbre de choix : 6 puis 2 et 1 et 1 dans le cadre d'une matrice 2*2)
+        nombre_de_remplissage = grille.n*grille.m # nombre de fois où on met le nombre (cf descente de l'arbre de choix : 6 puis 2 et 1)
+        #nb_fois = int(factorielle/(grille.n*grille.m))# nombre de fois où l'on reproduit la même grille : au début on veut 6 grilles avec des 1 en haut à gauche, puis 6 avec des 2...
         
 
         nb_foiss = retournement(nbb_fois(grille, factorielle))
 
         
-        for case in range (grille.n*grille.m-1, -1, -1) : # il y a n*m cases dans la grille dont on envisage les configurations 
+        for case in range (grille.n*grille.m-1, -1, -1) : # il y a n*m cases dans la grille dont on envisage les configurations
             numero_grille = 0
-            diviseur = grille.n*grille.m
+            diviseur = grille.n*grille.m          
             #for i in range (factorielle) :
             for nombre in choix_possibles :
                 compteur_occurence_nombre = 0 
@@ -253,26 +246,25 @@ class Grid():
     def creation_des_ponts (self, liste_grilles) : 
         import os
         liste_grilles = list(liste_grilles)
-        
-        def pont_possible (grille_1, grille_2) : #fonction auxilliaire qui renvoie si un pont entre deux états de la grille peut être construit (swap légal ou pas)
+        def pont_possible (grille_1, grille_2) :
             for i in range (len(grille_1)) : #len(...) = nb de lignes de grille_1 
                 for j in range (len(grille_1[0])) : # len(...) = nb_colonnes de grille_1
                     if grille_1[i][j] != grille_2[i][j] : # relève une différence
                         #cherche si le changement a été légal
                         if (j+1) < len(grille_1[0]) : 
-                            if (grille_1[i][j] == grille_2[i][j+1]) : #necessaire de faire cette verif pour ne pas avoir de index out of range
+                            if (grille_1[i][j] == grille_2[i][j+1]) : #necessaire de faire cette verif pour pas avoir de index out of range
                                 return(True)
                             
                         elif (j-1) > 0 : 
-                            if (grille_1[i][j] == grille_2[i][j-1]) : #necessaire de faire cette verif pour ne pas avoir de index out of range
+                            if (grille_1[i][j] == grille_2[i][j-1]) : #necessaire de faire cette verif pour pas avoir de index out of range
                                 return(True)
                             
                         elif (i-1) > 0 : 
-                            if (grille_1[i][j] == grille_2[i-1][j]) : #necessaire de faire cette verif pour ne pas avoir de index out of range
+                            if (grille_1[i][j] == grille_2[i-1][j]) : #necessaire de faire cette verif pour pas avoir de index out of range
                                 return(True)
                             
                         elif (i+1) < len(grille_1) :
-                            if (grille_1[i-1][j] == grille_2[i+1][j]) : #necessaire de faire cette verif pour ne pas avoir de index out of range
+                            if (grille_1[i-1][j] == grille_2[i+1][j]) : #necessaire de faire cette verif pour pas avoir de index out of range
                                 return(True)
                         else : 
                             return(False)
