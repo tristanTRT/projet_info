@@ -97,31 +97,31 @@ class Graph:
         path: list[NodeType] | None
             The shortest path from src to dst. Returns None if dst is not reachable from src
         """ 
-        Trouve = False
-        chemin = []
+        Trouve = False # On va faire la recherche tant que l'on n'a pas trouvé le noeud cible
+        chemin = [] # A chaque noeud exploré on va le mettre dans le chemin parcouru
         if src != dst : #elimine le cas trivial ou arrivée = départ
-            file = [src]
+            file = [src] # on commence le chemin avec le noeud source
             ajout = self.graph[src] # renvoie une liste de noeuds atteignables à partir du noeud source nommé src
             for noeud in ajout : 
-                if (noeud in file) == False : 
+                if (noeud in file) == False : # cela ne sert à rien de mettre deux fois un même noeud dans la liste de ceux à explorer
                     file.append(noeud)
 
             if dst in file == True :  
                 Trouve = True 
-                chemin.append(dst)
+                chemin.append(dst) # si, après avoir exploré le noeud source on a le noeud cible : fin de l'algo : on ajoute noeud cible au chemin 
                 return(chemin, Trouve)
                 
-            for element in file :  
-                ajout = self.graph[element] # renvoie une liste de noeuds atteignables à partir du noeud source nommé element
-                for noeud in ajout : #détour nécessaire car on ne peut ajouter directement la liste (message d'erreur)
-                    if (noeud in file) == False :
+            for element in file :  # sinon, on boucle tant que dans la file il n'y a pas le noeud cible
+                ajout = self.graph[element] # renvoie une liste de noeuds atteignables à partir du noeud nommé element, tiré de la file 
+                for noeud in ajout : # ajout des noeuds atteignables à partir de element 
+                    if (noeud in file) == False : 
                         file.append(noeud)
-                chemin.append(element)
-                if (dst in file) == True:  
+                chemin.append(element)# après exploration des noeuds adjacents à element on dit qu'on est passé par element en ajoutant element dans chemin
+                if (dst in file) == True:  # si l'exploration de element a été concluante : on ajoute noeud destination à chemin et on renvoie chemin
                     Trouve = True 
                     chemin.append(dst)
                     return(chemin)
-        else : 
+        else : # cas où destination = source : le chemin est égal à noeud source 
             return(chemin)
             
                 
