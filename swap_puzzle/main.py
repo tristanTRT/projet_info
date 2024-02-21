@@ -24,7 +24,7 @@ print(s.get_solution(g)) # résout la grille g
 
 
 graph2 = Graph.graph_from_file(data_path + "graph2.in")
-print(graph1) # le fichier donne le nombre de noeuds et le nombres de ponts au total / il décrit ensuite les arrangements faits entre les ponts
+
 # But de l'implementation initiale de BFS : trouver plus court chemin entre noeud 1 et 2 par exemple 
 
 print(graph2.bfs(2,10), 'resultats 1') # donne le plus court chemin entre le noeud 2 et 10 dans le graph2
