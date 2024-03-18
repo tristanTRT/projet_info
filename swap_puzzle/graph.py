@@ -347,16 +347,16 @@ class Graph:
        chemin = set([src])  # A chaque noeud exploré on va le mettre dans le chemin parcouru
        predecesseurs = {src: None}  # nécessaire pour reconstituer le chemin le plus court
        queue = [(0, 0, 0, src)]  # 1ere valeur : somme des heuristiques et coût réel, 2e valeur : coût réel, 3e valeur : heuristique (distance de Manhattan), 4e valeur : numéro/index du noeud
-       compteur = 1
 
 
-       while queue and compteur != 10:
+
+       while queue :
            noeud_actuel = heapq.heappop(queue)  # Retirez le nœud avec la priorité la plus basse
-           compteur = compteur + 1
+
 
 
            for noeud in self.graph[noeud_actuel[3]]:
-               compteur = compteur + 1
+
                if noeud not in chemin:  # cela ne sert à rien de mettre deux fois un même noeud dans la liste de ceux à explorer
                    auxilliaire = Graph()
                    nouvel_element = (noeud_actuel[0] + 1 + auxilliaire.heuristique(dst, noeud), noeud_actuel[0] + 1, auxilliaire.heuristique(dst, noeud), noeud)
@@ -372,7 +372,6 @@ class Graph:
                        path.reverse()
                        return path
                   
-                   compteur = compteur + 1
               
        return None
   
