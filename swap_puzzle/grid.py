@@ -254,8 +254,6 @@ class Grid():
                numero_grille = 0
 
 
-           # Correction de la mise à jour de diviseur
-           diviseur *= case
 
 
            # Pour passer à la case d'après
