@@ -355,7 +355,10 @@ class Grid():
            fichier.close()
            # bouge le fichier avec le fichier de la liste des ponts entre les noeuds
        return(niveau_difficulte)
-       #la fonction fonctionne
+       #la fonction fonctionne 
+       #cree une matrice rangée de taille cible
+       #stocke dans un fichier nommé 'difficulte_control_grille_rangee'
+       #return le nom de ce fichier
 
 
    #fonction auxilliaire de difficulte_control
