@@ -157,7 +157,7 @@ class Graph:
                       
 
 
-               # i = nb de caractères bien rangés avant le 1er dérangement : on ne doit pas toucher à ceux-là
+               # compteur = nb de caractères bien rangés avant le 1er dérangement : on ne doit pas toucher à ceux-là
                colonne = 0
                ligne = 0 
                for caratere in range (compteur-1) : # on ne veut répéter la condition que compteur -1 fois car le 1er dérangement a lieu à compteur
@@ -231,16 +231,16 @@ class Graph:
 
 
            for noeud in self.graph[noeud_actuel] :
-               if (noeud not in chemin) and filtre(dst, noeud_actuel, noeud) : # cela ne sert à rien de mettre deux fois un même noeud dans la liste de ceux à explorer
+               if (noeud not in chemin) and filtre(dst, noeud_actuel, noeud) : # cela ne sert à rien d'explorer deux fois un même noeud
                    queue.append(noeud)
                    chemin.add(noeud)
-                   predecesseurs[noeud] = noeud_actuel
+                   predecesseurs[noeud] = noeud_actuel # pour remonter le chemin ensuite 
 
 
                    if noeud == dst :
                        path = [noeud]
                        while predecesseurs[path[-1]] is not None:
-                           path.append(predecesseurs[path[-1]])
+                           path.append(predecesseurs[path[-1]]) # on remonte le chemin en parcourant le dictionnaire path
                        path.reverse()
                        return path
       
